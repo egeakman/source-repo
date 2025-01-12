@@ -1,0 +1,15 @@
+name: Trigger Archiver
+
+on:
+  push:
+    branches:
+      - main
+      - 2024
+      - 2025
+
+jobs:
+  notify-target:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log Trigger Info
+        run: echo "Triggering archiver for branch ${{ github.ref_name }}"
