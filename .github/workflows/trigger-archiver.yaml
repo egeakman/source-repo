@@ -17,7 +17,6 @@ jobs:
           echo "Triggering workflow for branch: $branch"
           gh workflow run dispatcher.yaml \
             --repo egeakman/target-repo \
-            --ref $branch \
             --field branch=$branch
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
