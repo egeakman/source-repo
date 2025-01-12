@@ -1,15 +1,23 @@
-name: Trigger Archiver
+name: Trigger Target Repository Workflow
 
 on:
   push:
     branches:
-      - main
       - 2024
       - 2025
+      - main
 
 jobs:
-  notify-target:
+  trigger-target:
     runs-on: ubuntu-latest
     steps:
-      - name: Log Trigger Info
-        run: echo "Triggering archiver for branch ${{ github.ref_name }}"
+      - name: Trigger Workflow in Target Repository
+        run: |
+          branch=${{ github.ref_name }}
+          echo "Triggering workflow for branch: $branch"
+          gh workflow run dispatcher.yaml \
+            --repo egeakman/target-repo \
+            --ref $branch \
+            --field branch=$branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
